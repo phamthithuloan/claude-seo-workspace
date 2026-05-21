@@ -2,6 +2,11 @@
 
 Personal workspace cho SEO content workflow của Seongon Content, dựng bằng [Claude Code](https://claude.com/claude-code) skills + MCP integrations.
 
+**Live preview** (GitHub Pages): https://phamthithuloan.github.io/claude-seo-workspace/
+
+**Output preview**:
+- [Elite Dental — Trồng răng implant có đau không (HTML có ảnh chèn sẵn)](https://phamthithuloan.github.io/claude-seo-workspace/outputs/elite-dental-implant-with-images.html) — output của `/chen-anh-bai`
+
 ## Structure
 
 ```
