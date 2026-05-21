@@ -12,10 +12,11 @@ Personal workspace cho SEO content workflow của Seongon Content, dựng bằng
 └── chen-anh-bai/            # Auto-chèn ảnh vào bài SEO trong Google Doc (Drive MCP + Unsplash + Canva/Gemini)
 
 outputs/                    # File output từ chạy skills
-├── outline-cach-cham-soc-mat-v2.md           # Outline mẫu (chạy /write-content)
-├── chat-history-2026-05-18.txt               # Lịch sử trò chuyện (/export) — 3 skills đầu
-├── chen-anh-bai-chat-history-2026-05-21.txt  # Lịch sử trò chuyện (/export) — build chen-anh-bai + run thật với Doc Elite Dental
-└── red-flags-infographic.png                 # Infographic Red Flags (chạy /brand-image qua Canva)
+├── outline-cach-cham-soc-mat-v2.md             # Outline mẫu (chạy /write-content)
+├── chat-history-2026-05-18.txt                 # Lịch sử trò chuyện (/export) — 3 skills đầu
+├── chen-anh-bai-chat-history-2026-05-21.txt    # Lịch sử trò chuyện (/export) — build chen-anh-bai + run thật với Doc Elite Dental
+├── elite-dental-implant-with-images.html       # Output /chen-anh-bai: HTML có 1 ảnh Unsplash thật + 5 placeholder brand, drag-drop Drive convert thành Doc mới
+└── red-flags-infographic.png                   # Infographic Red Flags (chạy /brand-image qua Canva)
 ```
 
 ## 4 Skills
@@ -105,7 +106,9 @@ Toàn bộ flow + AI conversations xem trong `outputs/chat-history-2026-05-18.tx
 2. Iterate skill 3 lần (rename `inserting-blog-images` → `chen-anh-bai`, đổi flow paste-1-lần → AskUserQuestion, bỏ MCP Drive auth → curl export URL)
 3. `/chen-anh-bai <Google Doc URL Elite Dental "Trồng răng implant có đau không">` → run thật
 4. Brand "Elite Dental Custom" extract HEX từ logo user share (primary #C2185B magenta + grey #6B6B6B)
-5. Skill đọc Doc 2030 từ, tính 6 ảnh, build HTML có 1 ảnh Unsplash thật + 5 placeholder brand → output `/tmp/clean-elite.html` user drag-drop Drive convert thành Doc mới
+5. Skill đọc Doc 2030 từ, tính 6 ảnh, build HTML có 1 ảnh Unsplash thật + 5 placeholder brand → output `outputs/elite-dental-implant-with-images.html` (drag-drop vào drive.google.com → right-click → Open with Google Docs để convert thành Doc mới)
+
+**Xem output thực**: file `outputs/elite-dental-implant-with-images.html` (15KB, render trong browser hoặc upload Drive).
 
 ## Lưu ý
 
