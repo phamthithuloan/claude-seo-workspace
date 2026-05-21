@@ -111,20 +111,33 @@ Phân bổ vị trí:
 
 Mỗi anchor lưu: `(position_id, paragraph_text_snippet_30char, image_purpose)`. `image_purpose` lấy từ context paragraph xung quanh.
 
-### Step 4 — Phân loại photo vs infographic/brand-visual cho từng ảnh
+### Step 4 — Phân loại nguồn ảnh cho từng anchor
 
-Với mỗi anchor, decision tree:
+**DEFAULT cho mọi anchor: tìm ảnh trên mạng (Unsplash → Pexels → WebSearch).** KHÔNG ưu tiên gen ảnh.
+
+Decision tree (theo thứ tự):
 
 ```
-image_purpose chứa "quy trình", "sản phẩm", "kết quả", "case study", "khách hàng"
-  → ƯU TIÊN ảnh nguyên bản (hỏi user có ảnh original không, fallback Unsplash)
-image_purpose chứa "infographic", "biểu đồ", "so sánh", "checklist", "framework"
-  → Canva (brand-image skill) — apply brand template
-image_purpose là scene/khái niệm chung (vd "team họp", "phụ nữ trẻ", "phòng khám")
-  → Unsplash/Pexels search, fallback Gemini gen
+1. image_purpose CỤ THỂ tới brand identity (vd: "Elite Dental showcase",
+   "quy trình 7 bước Hồng Ngọc", "AACI cert + công nghệ riêng")?
+   → gen-canva (brand-image skill) — apply brand template + logo
+
+2. Concept generic có thể minh họa bằng stock photo (vd: "5 yếu tố ảnh hưởng",
+   "dấu hiệu bất thường", "cách giảm đau", "quy trình chung", "khách hàng",
+   "phòng khám", "scene chung")?
+   → web-search (DEFAULT)
+
+3. User explicit cung cấp ảnh nguyên bản từ tổ chức?
+   → original — chỉ khi user upload, KHÔNG hỏi nếu không cần
 ```
 
-Tag mỗi anchor: `original` | `web-search` | `gen-canva` | `gen-gemini`.
+**Anti-pattern**: gen Canva cho mọi anchor có chữ "infographic" trong purpose. "5 yếu tố ảnh hưởng" KHÔNG bắt buộc phải là infographic — có thể minh họa bằng ảnh x-ray, dentist consultation, dental tools, v.v. Chỉ gen khi search không tìm được ảnh phù hợp HOẶC nội dung phải có brand identity riêng.
+
+Tag mỗi anchor:
+- `web-search` (DEFAULT) — Unsplash/Pexels/WebSearch
+- `gen-canva` — CHỈ khi brand-specific (logo, brand colors enforce, brand showcase)
+- `gen-gemini` — fallback khi `web-search` thử ≥3 query mà không tìm được ảnh free + phù hợp
+- `original` — chỉ khi user explicit upload ảnh tổ chức
 
 ### Step 5 — Fetch hoặc gen ảnh
 
